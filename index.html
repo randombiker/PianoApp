@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <!-- Make the page mobile compatible -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Allow installing the app to the homescreen -->
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    <title>Piano App</title>
+  </head>
+
+  <body>
+    <!-- Display a message if JS has been disabled on the browser. -->
+    <noscript
+      >If you're seeing this message, that means
+      <strong>JavaScript has been disabled on your browser</strong>, please
+      <strong>enable JS</strong> to make this app work.</noscript
+    >
+
+    <div id="root">
+      <div class="logo"></div>
+      <div class="howTo">
+        Use the specified keyboard keys to play the piano. You can also tap /
+        click. Works best on Chrome.
+      </div>
+      <div class="container">
+        <div data-key="81" class="key" id="qq">
+          Q
+        </div>
+        <div data-key="87" class="key" id="ww">
+          W
+        </div>
+        <div data-key="69" class="key" id="ee">
+          E
+        </div>
+        <div data-key="82" class="key" id="rr">
+          R
+        </div>
+        <div data-key="84" class="key" id="tt">
+          T
+        </div>
+        <div data-key="89" class="key" id="yy">
+          Y
+        </div>
+        <div data-key="85" class="key" id="uu">
+          U
+        </div>
+        <div data-key="73" class="key" id="ii">
+          I
+        </div>
+        <div data-key="79" class="key" id="oo">
+          O
+        </div>
+        <div data-key="80" class="key" id="pp">
+          P
+        </div>
+        <div data-key="65" class="key" id="aa">
+          A
+        </div>
+        <div data-key="83" class="key" id="ss">
+          S
+        </div>
+        <div data-key="68" class="key" id="dd">
+          D
+        </div>
+        <div data-key="70" class="key" id="ff">
+          F
+        </div>
+        <div data-key="71" class="key" id="gg">
+          G
+        </div>
+        <div data-key="72" class="key" id="hh">
+          H
+        </div>
+        <div data-key="74" class="key" id="jj">
+          J
+        </div>
+        <div data-key="75" class="key" id="kk">
+          K
+        </div>
+        <div data-key="76" class="key" id="ll">
+          L
+        </div>
+      </div>
+    </div>
+
+    <div class="info">
+      <a href="https://adrianbenea.netlify.com" target="_blank"
+        >©Adrian Benea</a
+      >
+    </div>
+
+    <audio data-key="81" id="QQ" src="sound/1.wav"></audio>
+    <audio data-key="87" id="WW" src="sound/2.wav"></audio>
+    <audio data-key="69" id="EE" src="sound/3.wav"></audio>
+    <audio data-key="82" id="RR" src="sound/4.wav"></audio>
+    <audio data-key="84" id="TT" src="sound/5.wav"></audio>
+    <audio data-key="89" id="YY" src="sound/6.wav"></audio>
+    <audio data-key="85" id="UU" src="sound/7.wav"></audio>
+    <audio data-key="73" id="II" src="sound/8.wav"></audio>
+    <audio data-key="79" id="OO" src="sound/9.wav"></audio>
+    <audio data-key="80" id="PP" src="sound/10.wav"></audio>
+
+    <audio data-key="65" id="AA" src="sound/11.wav"></audio>
+    <audio data-key="83" id="SS" src="sound/12.wav"></audio>
+    <audio data-key="68" id="DD" src="sound/13.wav"></audio>
+    <audio data-key="70" id="FF" src="sound/14.wav"></audio>
+    <audio data-key="71" id="GG" src="sound/15.wav"></audio>
+    <audio data-key="72" id="HH" src="sound/16.wav"></audio>
+    <audio data-key="74" id="JJ" src="sound/17.wav"></audio>
+    <audio data-key="75" id="KK" src="sound/18.wav"></audio>
+    <audio data-key="76" id="LL" src="sound/19.wav"></audio>
+
+    <script>
+      //eventListener for keyboard users
+      window.addEventListener('keydown', function(event) {
+        const audio = document.querySelector(
+          `audio[data-key = "${event.keyCode}"]`
+        );
+
+        const key = document.querySelector(
+          `.key[data-key = "${event.keyCode}"]`
+        );
+
+        if (!audio) return;
+        audio.currentTime = 0;
+        audio.play();
+
+        key.classList.add('btnDown');
+      });
+
+      //eventListener for mouse click/screen tap
+
+      window.addEventListener('click', function(event) {
+        const audioB = document.getElementById(event.target.id.toUpperCase());
+
+        const keyB = document.getElementById(event.target.id);
+
+        if (!audioB) return;
+        audioB.currentTime = 0;
+        audioB.play();
+
+        keyB.classList.add('btnDown');
+      });
+      ///////////////////////////////////////////////////////
+
+      function removeTr(event) {
+        this.classList.remove('btnDown');
+      }
+
+      const keys = document.querySelectorAll('.key');
+      keys.forEach((key) => key.addEventListener('transitionend', removeTr));
+    </script>
+  </body>
+</html>
